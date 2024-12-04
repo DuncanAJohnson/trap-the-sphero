@@ -1,0 +1,19 @@
+Trap the Sphero!
+
+Movement
+
+-- Need to add function that moves Sphero to a particular (x, y) coordinate
+-- Small adjustments to keep the Sphero at an (x, y) coord if that big movement messed up
+
+Computer Vision - Luke
+
+-- Need to detect the Sphero - (x, y)
+-- Need to detect the obstacles - array of (x, y)
+-- Need to detect the grid and represent it in code
+    -- 2D array of "bounding box" objects, each with four corner coordinates and a center (x, y) coordinate
+
+
+Pathfinding - Duncan
+
+-- Feed in 5x5 grid representation, location of Sphero, location of obstacles, location of escape area, and run A*
+-- Pathfinding visualization with ascii art
