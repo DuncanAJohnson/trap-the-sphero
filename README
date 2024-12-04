@@ -16,4 +16,4 @@ Computer Vision - Luke
 Pathfinding - Duncan
 
 -- Feed in 5x5 grid representation, location of Sphero, location of obstacles, location of escape area, and run A*
--- Pathfinding visualization with ascii art
+-- Pathfinding visualization with ascii art (DONE)
