@@ -1,17 +1,31 @@
 import cv2
 import numpy as np
 
-# Function to detect squares in a frame
-def detect_squares(frame):
-    # Convert the frame to grayscale
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+BLACK_LOWER_RANGE = (0, 0, 0)
+BLACK_UPPER_RANGE = (50, 50, 50)
+
+# detects the grid squares in the image
+def detect_grid_squares(frame):
+
+    # mask out the black tape
+    mask = cv2.inRange(frame, BLACK_LOWER_RANGE, BLACK_UPPER_RANGE)
+
+    # downscale the image
+    mask = cv2.resize(mask, (0, 0), fx=0.1, fy=0.1)
+    frame = cv2.resize(frame, (0, 0), fx=0.1, fy=0.1)
 
     # Apply Gaussian blur to reduce noise
-    gray = cv2.GaussianBlur(gray, (9, 9), 2)
+    mask = cv2.GaussianBlur(mask, (9, 9), 2)
+
+    # cv2.imshow('Masked and Blurred', mask)
+    # cv2.waitKey(0)
 
     # Perform edge detection using Canny
-    edges = cv2.Canny(gray, 90, 190, apertureSize=3)
-    cv2.imshow('Edges', edges)
+    edges = cv2.Canny(mask, 90, 190, apertureSize=3)
+
+
+    # cv2.imshow('Edges', edges)
+    # cv2.waitKey(0)
 
     # Find contours in the edge-detected image
     contours, _ = cv2.findContours(
@@ -19,9 +33,18 @@ def detect_squares(frame):
         cv2.RETR_EXTERNAL,
         cv2.CHAIN_APPROX_SIMPLE
     )
+
+    # draw the contours on the frame
     contour_img = frame.copy()
     cv2.drawContours(contour_img, contours, -1, (0, 255, 0), 3)
+
     cv2.imshow('Contours', contour_img)
+
+    cv2.waitKey(0)
+
+    return
+
+    # find 
 
     centers = []
 
@@ -32,7 +55,6 @@ def detect_squares(frame):
 
         approx_img = frame.copy()
         cv2.drawContours(approx_img, approx, -1, (0, 255, 0), 3)
-        cv2.imshow('Approx', approx_img)
 
         # Check if the polygon has 4 vertices (a square)
         if len(approx) >= 4 and len(approx) <= 7:
@@ -47,7 +69,7 @@ def detect_squares(frame):
 
 
 # Open the video stream (0 for default camera)
-cap = cv2.VideoCapture(0)
+"""cap = cv2.VideoCapture(0)
 
 while True:
     # Capture a frame from the video stream
@@ -73,4 +95,4 @@ while True:
 
 # Release the video stream and close all windows
 cap.release()
-cv2.destroyAllWindows()
+cv2.destroyAllWindows()"""
