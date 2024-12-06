@@ -2,13 +2,40 @@ import cv2
 import numpy as np
 
 BLACK_LOWER_RANGE = (0, 0, 0)
-BLACK_UPPER_RANGE = (50, 50, 50)
+BLACK_UPPER_RANGE = (60, 60, 60)
+
+GRID_SQUARE_SIZE_RANGE = (1500, 3500)
+
+def calculate_area(points):
+    n = len(points)
+    area = 0.0
+    for i in range(n):
+        j = (i + 1) % n  # Next vertex index
+        area += points[i][0] * points[j][1]
+        area -= points[j][0] * points[i][1]
+    area = abs(area) / 2.0
+    return area
+
+def boxify_contour(contour):
+    rect = cv2.minAreaRect(contour)
+    box = cv2.boxPoints(rect)
+    # calculate the area of the box
+    center_x = int(np.mean(box[:, 0]))  # Average of x-coordinates
+    center_y = int(np.mean(box[:, 1]))  # Average of y-coordinates
+    center = (center_x, center_y)
+
+    area = calculate_area(box)
+
+    return box, area, center
 
 # detects the grid squares in the image
 def detect_grid_squares(frame):
 
     # mask out the black tape
     mask = cv2.inRange(frame, BLACK_LOWER_RANGE, BLACK_UPPER_RANGE)
+
+    # cv2.imshow('Masked', mask)
+    # cv2.waitKey(0)
 
     # downscale the image
     mask = cv2.resize(mask, (0, 0), fx=0.1, fy=0.1)
@@ -22,7 +49,6 @@ def detect_grid_squares(frame):
 
     # Perform edge detection using Canny
     edges = cv2.Canny(mask, 90, 190, apertureSize=3)
-
 
     # cv2.imshow('Edges', edges)
     # cv2.waitKey(0)
@@ -38,61 +64,32 @@ def detect_grid_squares(frame):
     contour_img = frame.copy()
     cv2.drawContours(contour_img, contours, -1, (0, 255, 0), 3)
 
-    cv2.imshow('Contours', contour_img)
-
-    cv2.waitKey(0)
-
-    return
-
-    # find 
+    # cv2.imshow('Contours', contour_img)
+    # cv2.waitKey(0)
 
     centers = []
 
     for contour in contours:
-        # Approximate the contour to a polygon
-        epsilon = 0.04 * cv2.arcLength(contour, True)
-        approx = cv2.approxPolyDP(contour, epsilon, True)
+        # Approximate the contour to a square
+        box, area, center = boxify_contour(contour)
 
-        approx_img = frame.copy()
-        cv2.drawContours(approx_img, approx, -1, (0, 255, 0), 3)
+        # show the vertices on the frame
+        img = frame.copy()
+        for vertex in box:
+            cv2.circle(img, tuple(map(int, vertex)), 4, (0, 0, 255), -1)
 
-        # Check if the polygon has 4 vertices (a square)
-        if len(approx) >= 4 and len(approx) <= 7:
-            # Calculate the center of the square
-            M = cv2.moments(approx)
-            if M["m00"] != 0:
-                cx = int(M["m10"] / M["m00"])
-                cy = int(M["m01"] / M["m00"])
-                centers.append((cx, cy))
+        # cv2.imshow('Box', img)
+        # cv2.waitKey(0)
+
+        # Check if the square is the correct size to be a grid square
+        if area > GRID_SQUARE_SIZE_RANGE[0] and area < GRID_SQUARE_SIZE_RANGE[1]:
+            centers.append(center)
+
+    # draw the centers on the frame
+    for center in centers:
+        cv2.circle(frame, center, 4, (0, 255, 0), -1)
+
+    cv2.imshow('Centers', frame)
+    cv2.waitKey(0)
 
     return centers
-
-
-# Open the video stream (0 for default camera)
-"""cap = cv2.VideoCapture(0)
-
-while True:
-    # Capture a frame from the video stream
-    ret, frame = cap.read()
-
-    # Check if the frame was successfully captured
-    if not ret:
-        break
-
-    # Detect squares in the frame
-    squares = detect_squares(frame)
-
-    for point in squares:
-        point = (int(point[0]), int(point[1]))
-        cv2.circle(frame, point, 4, (0, 255, 0), -1)
-
-    # Display the frame with detected squares
-    cv2.imshow('Squares Detected', frame)
-
-    # Exit when 'q' is pressed
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-# Release the video stream and close all windows
-cap.release()
-cv2.destroyAllWindows()"""
