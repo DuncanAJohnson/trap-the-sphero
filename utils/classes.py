@@ -1,11 +1,5 @@
 from dataclasses import dataclass
 
-
-@dataclass
-class Grid_Square:
-    corners: list[tuple[int, int]]
-    center: tuple[int, int]
-
 @dataclass
 class Pathfinding_Environment:
     sphero: tuple[int, int]

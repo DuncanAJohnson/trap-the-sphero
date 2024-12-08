@@ -1,4 +1,4 @@
-from classes import Pathfinding_Environment
+from utils.classes import Pathfinding_Environment
 from pathfinding.pathfinding import find_next_square
 
 sphero = (2, 2)
@@ -14,8 +14,14 @@ print(environment)
 while not (environment.sphero[0] == 0 or environment.sphero[0] == environment.grid_size[0] - 1 or environment.sphero[1] == 0 or environment.sphero[1] == environment.grid_size[1] - 1):
     next_square = find_next_square(environment)
     environment.sphero = next_square
+
+    if next_square is None:
+        print("Sphero is trapped!")
+        break
+
     print("~~~Next environment~~~")
     print(environment)
 
-print("Sphero escaped!")
+if next_square is not None:
+    print("Sphero escaped!")
 

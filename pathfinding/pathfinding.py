@@ -1,5 +1,5 @@
 from pathfinding.a_star import a_star_search
-from classes import Pathfinding_Environment
+from utils.classes import Pathfinding_Environment
 
 def find_edge_squares(environment: Pathfinding_Environment):
     edge_squares = []
