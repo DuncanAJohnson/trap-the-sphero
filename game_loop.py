@@ -77,6 +77,7 @@ async def game_loop():
             movement_complete = await sphero.move_sphero(sphero_image_position, grid_centers[next_square])
 
         turn = "Human"
+        sphero.stop_sphero()
         movement_complete = False
     
 

@@ -40,11 +40,8 @@ class Sphero:
         # convert the difference to a direction
         direction = math.atan2(diff[1], diff[0])
 
-        # move the sphero a tiny bit in the direction of the desired position
-        await self.roll_in_direction(direction)
-
-    async def roll_in_direction(self, direction):
         SpheroEduAPI(self.toy).set_heading(direction)
         SpheroEduAPI(self.toy).set_speed(MAX_SPEED)
-        await asyncio.sleep(0.1)
+
+    def stop_sphero(self):
         SpheroEduAPI(self.toy).set_speed(0)
