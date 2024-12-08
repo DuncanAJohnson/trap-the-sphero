@@ -137,5 +137,5 @@ def a_star_search(grid, src, dest):
 
     # If the destination is not found after visiting all cells
     if not found_dest:
-        print("Failed to find the destination cell")
+        return None, 0
 
