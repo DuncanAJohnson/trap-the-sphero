@@ -1,17 +1,19 @@
+import asyncio
 from utils.classes import Pathfinding_Environment
 from utils.camera import take_picture
 from cv.detect_grid import detect_grid_squares
 from cv.detect_sphero import get_sphero_position
 from cv.detect_obstacles import detect_obstacles
 from pathfinding.pathfinding import find_next_square
-from sphero.sphero import move_sphero
+from sphero.sphero import Sphero
 
 GRID_SIZE = (5, 5)
 num_obstacles = 0
 grid_centers = None
+sphero = None
 turn = "Human"
 win = None
-
+movement_complete = False
 # find the grid coordinates of the closest grid center
 def find_grid_coords(center):
     closest_center = min(grid_centers, key=lambda x: distance(x, center))
@@ -38,8 +40,11 @@ def game_start():
     # get the obstacles
     grid_centers = detect_grid_squares(frame)
 
+    # initialize the sphero
+    sphero = Sphero()
 
-def game_loop():
+
+async def game_loop():
     if turn == "Human":
         # wait until another obstacle is added to the grid
         obstacles = detect_obstacles(frame)
@@ -48,7 +53,7 @@ def game_loop():
         return
     
     if turn == "Sphero":
-        # get the pathfinding environment
+        # get the sphero's position and the pathfinding environment
         pathfinding_environment = get_pathfinding_environment(frame)
 
         # check if the sphero has escaped
@@ -64,14 +69,21 @@ def game_loop():
             win = "Human"
             return
 
-        # move the sphero the image coordinates of the next square
-        move_sphero(grid_centers[next_square])
+        while not movement_complete:
+            # get the sphero's position
+            sphero_image_position = get_sphero_position(frame)
+
+            # move the sphero towards the image coordinates of the next square
+            movement_complete = await sphero.move_sphero(sphero_image_position, grid_centers[next_square])
+
+        turn = "Human"
+        movement_complete = False
     
 
 if __name__ == "__main__":
     game_start()
     while win is None:
-        game_loop()
+        asyncio.run(game_loop())
 
     if win == "Human":
         print("Human wins!")
