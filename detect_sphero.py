@@ -27,6 +27,8 @@ class WhiteRegionDetector:
         # Define the range for white color in HSV
         lower_white = np.array([0, 0, 200])
         upper_white = np.array([180, 30, 255])
+        # lower_orange = np.array([5, 150, 150])
+        # upper_orange = np.array([45, 255, 255])
 
         # Create a mask to isolate white areas
         white_mask = cv.inRange(hsv_frame, lower_white, upper_white)
