@@ -44,7 +44,7 @@ def game_start():
     sphero = Sphero()
 
 
-async def game_loop():
+def game_loop():
     if turn == "Human":
         # wait until another obstacle is added to the grid
         obstacles = detect_obstacles(frame)
@@ -74,7 +74,7 @@ async def game_loop():
             sphero_image_position = get_sphero_position(frame)
 
             # move the sphero towards the image coordinates of the next square
-            movement_complete = await sphero.move_sphero(sphero_image_position, grid_centers[next_square])
+            movement_complete = sphero.move_sphero(sphero_image_position, grid_centers[next_square])
 
         turn = "Human"
         sphero.stop_sphero()
@@ -84,7 +84,7 @@ async def game_loop():
 if __name__ == "__main__":
     game_start()
     while win is None:
-        asyncio.run(game_loop())
+        game_loop()
 
     if win == "Human":
         print("Human wins!")

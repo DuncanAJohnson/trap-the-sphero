@@ -12,7 +12,7 @@ class Sphero:
         if not self.toy:
             raise Exception("No Sphero found!")
 
-    async def move_sphero(self, detected_position, desired_position):
+    def move_sphero(self, detected_position, desired_position):
         # add the detected position to the list of previous positions
         self.previous_positions.append(detected_position)
 
