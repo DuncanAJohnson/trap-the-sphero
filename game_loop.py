@@ -1,6 +1,6 @@
 import asyncio
 from utils.classes import Pathfinding_Environment
-from utils.camera import take_picture
+from utils.camera import Camera
 from cv.detect_grid import detect_grid_squares
 from cv.detect_sphero import get_sphero_position
 from cv.detect_obstacles import detect_obstacles
@@ -14,6 +14,10 @@ sphero = None
 turn = "Human"
 win = None
 movement_complete = False
+X_BOUNDS = (162, 379)
+Y_BOUNDS = (155, 392) 
+camera = None
+
 # find the grid coordinates of the closest grid center
 def find_grid_coords(center):
     closest_center = min(grid_centers, key=lambda x: distance(x, center))
@@ -34,8 +38,11 @@ def get_pathfinding_environment(frame):
     return Pathfinding_Environment(sphero_grid_position, obstacles_grid_positions, GRID_SIZE)
 
 def game_start():
+    # initialize the camera
+    camera = Camera(X_BOUNDS, Y_BOUNDS)
+
     # take a picture of the grid
-    frame = take_picture()
+    frame = camera.take_picture()
 
     # get the grid square centers
     grid_centers = detect_grid_squares(frame)
@@ -45,6 +52,8 @@ def game_start():
 
 
 def game_loop():
+    frame = camera.take_picture()
+
     if turn == "Human":
         # wait until another obstacle is added to the grid
         obstacles = detect_obstacles(frame)
