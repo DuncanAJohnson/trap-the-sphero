@@ -3,12 +3,12 @@ from cv.detect_obstacles import detect_obstacles
 import cv2
 
 # load the image
-image = cv2.imread('images/small_test.png')
+image = cv2.imread('images/4x3_cropped.jpg')
 
-# detect the squares
-squares = detect_grid_squares(image)
+# detect the grid
+grid = detect_grid_squares(image)
 
-print("Grid centers: ", squares)
+print("Grid centers: ", grid)
 
 # detect the obstacles
 obstacles = detect_obstacles(image)
@@ -16,11 +16,12 @@ obstacles = detect_obstacles(image)
 print("Obstacle centers: ", obstacles)
 
 # draw the centers on the frame
-for center in squares:
-    cv2.circle(image, center, 16, (0, 255, 0), -1)
+for row in grid:
+    for center in row:
+        cv2.circle(image, center, 4, (0, 255, 0), -1)
 
 for center in obstacles:
-    cv2.circle(image, center, 16, (0, 0, 255), -1)
+    cv2.circle(image, center, 4, (0, 0, 255), -1)
 
 cv2.imshow('Image', image)
 cv2.waitKey(0)

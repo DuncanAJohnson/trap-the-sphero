@@ -37,7 +37,7 @@ def game_start():
     # take a picture of the grid
     frame = take_picture()
 
-    # get the obstacles
+    # get the grid square centers
     grid_centers = detect_grid_squares(frame)
 
     # initialize the sphero
