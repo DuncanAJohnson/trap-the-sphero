@@ -27,6 +27,10 @@ class Camera:
         print("Set Exposure")
 
     def take_picture(self):
+        # Flush the buffer by reading several frames
+        for _ in range(5):  # Read and discard 5 frames
+            self.cap.read()
+        
         # Capture a frame from the camera
         ret, frame = self.cap.read()
         if not ret:
