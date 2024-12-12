@@ -83,7 +83,7 @@ class SpheroController:
 
         api.set_heading(int(direction))
 
-        api.set_speed(15)
+        api.set_speed(17)
 
         return False
 

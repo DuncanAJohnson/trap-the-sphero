@@ -94,9 +94,9 @@ class Game:
 
             frame = self.camera.take_picture()
 
-            cv2.imshow("Capture before movement", frame)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
+            # cv2.imshow("Capture before movement", frame)
+            # cv2.waitKey(0)
+            # cv2.destroyAllWindows()
 
             # get the sphero's position and the pathfinding environment
             pathfinding_environment = self.get_pathfinding_environment(frame)
