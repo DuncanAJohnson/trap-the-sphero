@@ -1,9 +1,9 @@
 from utils.classes import Pathfinding_Environment
 from pathfinding.pathfinding import find_next_square
 
-sphero = (2, 2)
-obstacles = [(1, 1), (2, 1), (1, 2), (1, 3), (2, 3), (4, 2)]
-grid_size = (5, 5)
+sphero = (1, 1)
+obstacles = [(0, 1), (1, 0), (1, 2)]
+grid_size = (4, 3)
 
 environment = Pathfinding_Environment(sphero, obstacles, grid_size)
 print("~~~Initial environment~~~")

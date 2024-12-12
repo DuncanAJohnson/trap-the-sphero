@@ -1,19 +1,22 @@
 from cv.detect_squares import detect_squares
 
 # HSV color range for grid tape
-BLACK_LOWER_RANGE = (0, 0, 0)        # Any hue, no saturation, very dark
-BLACK_UPPER_RANGE = (60, 60, 60)    # Any hue, low saturation, dark values
-GRID_TAPE_COLOR_RANGE = (BLACK_LOWER_RANGE, BLACK_UPPER_RANGE)
+BLUE_LOWER_RANGE = (100, 150, 50)  # Adjust based on tape color and lighting
+BLUE_UPPER_RANGE = (140, 255, 255)  # Adjust based on tape color and lighting
+GRID_TAPE_COLOR_RANGE = (BLUE_LOWER_RANGE, BLUE_UPPER_RANGE)
 
 # size range for grid squares
-GRID_SQUARE_SIZE_RANGE = (300, 900)
+GRID_SQUARE_SIZE_RANGE = (1200, 2800)
 
 # detects the centers of the grid squares in the image and returns a 2D array of the centers
 def detect_grid_squares(frame):
-    centers = detect_squares(frame, GRID_TAPE_COLOR_RANGE, GRID_SQUARE_SIZE_RANGE, False)
+    centers = detect_squares(frame, GRID_TAPE_COLOR_RANGE, GRID_SQUARE_SIZE_RANGE)
     
     # Sort centers by y coordinate first (top to bottom)
     centers.sort(key=lambda p: p[1])
+
+    # add centers to image
+
     
     # Determine grid dimensions by analyzing point distributions
     y_coords = [p[1] for p in centers]

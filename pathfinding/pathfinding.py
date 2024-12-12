@@ -22,6 +22,8 @@ def make_grid(environment: Pathfinding_Environment):
     for obstacle in environment.obstacles:
         grid[obstacle[0]][obstacle[1]] = 0
 
+    print(grid)
+
     return grid
 
 # given the current environment, find the next square for the sphero to move to
@@ -34,10 +36,14 @@ def find_next_square(environment: Pathfinding_Environment):
     min_steps = float('inf')
     next_square_to_move_to = None
     for square in edge_squares:
+        # print("Searching from ", environment.sphero, " to ", square)
+        # print(grid)
         grid_copy = grid.copy()
         next_square, steps = a_star_search(grid_copy, environment.sphero, square)
+        # print("Next square: ", next_square)
         if steps < min_steps:
             min_steps = steps
             next_square_to_move_to = next_square
+        # print(next_square_to_move_to)
 
     return next_square_to_move_to

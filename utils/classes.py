@@ -12,11 +12,11 @@ class Pathfinding_Environment:
         grid = [['_' for _ in range(self.grid_size[0])] for _ in range(self.grid_size[1])]
 
         # add the sphero to the grid
-        grid[self.sphero[1]][self.sphero[0]] = 'S'
+        grid[self.sphero[0]][self.sphero[1]] = 'S'
 
         # add the obstacles to the grid
         for obstacle in self.obstacles:
-            grid[obstacle[1]][obstacle[0]] = 'O'
+            grid[obstacle[0]][obstacle[1]] = 'O'
 
         # create a string representation of the grid
         grid_str = '\n'.join(''.join(str(cell) for cell in row) for row in grid)
