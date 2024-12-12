@@ -70,7 +70,7 @@ class SpheroController:
         # print("Moving from ", center, " to ", target_position)
         # check if the sphero is close to the next square using cartesian distance
         distance_to_next_square = (center[0] - target_position[0])**2 + (center[1] - target_position[1])**2
-        if (distance_to_next_square < 8**2):
+        if (distance_to_next_square < 20**2):
             return True
 
         # calculate the difference between the current position and the desired position
@@ -83,7 +83,7 @@ class SpheroController:
 
         api.set_heading(int(direction))
 
-        api.set_speed(20)
+        api.set_speed(15)
 
         return False
 
