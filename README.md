@@ -45,7 +45,7 @@ To set up the project, follow these steps:
 This project was developed by:
 
 - **Duncan Johnson**  
-  *(TODO)*  
+  Email: [duncan.johnson@tufts.edu](mailto:duncan.johnson@tufts.edu) 
 
 - **Luke Tran**  
   Email: [tranqluke@gmail.com](mailto:tranqluke@gmail.com)
