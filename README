@@ -1,12 +1,12 @@
 # Trap the Sphero!
 
-A fun and interactive game where users strategically place orange obstacles on a 5x5 grid to trap a Sphero robot. The Sphero can move horizontally or vertically, one space per turn, making it a challenging game of strategy and pathfinding!
+A fun and interactive strategy game where players place orange obstacles on a 5x5 grid to trap a Sphero robot. The Sphero moves one space per turn, either horizontally or vertically, making it a challenging game of strategy and pathfinding!
 
 ---
 
 ## Prerequisites
 
-To run this project, ensure the following are installed on your system:
+Before running this project, make sure you have the following installed on your system:
 
 - **Python 3.x**  
 - **pip** (Python package manager)
@@ -15,22 +15,39 @@ To run this project, ensure the following are installed on your system:
 
 ## Installation Instructions
 
-1. Clone this repository:  
-    git clone <this repo url>
-    cd <your project folder>
-    pip install -r requirements.txt
+To set up the project, follow these steps:
 
+1. Clone this repository:
+    ```bash
+    git clone <this repo url>
+    ```
+
+2. Navigate to your project folder:
+    ```bash
+    cd <your project folder>
+    ```
+
+3. Install the required dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+---
 
 ## Contributors
 
 This project was developed by:
 
-- **Duncan Johnson** ()  
+- **Duncan Johnson**  
+  *(no contact info provided)*  
 
-- **Luke Tran** (tranqluke@gmail.com)
+- **Luke Tran**  
+  Email: [tranqluke@gmail.com](mailto:tranqluke@gmail.com)
 
-We collaborated on designing, implementing, and testing the game to ensure it met all project requirements.
+We collaborated on the design, implementation, and testing of the game to ensure it met all project requirements.
 
+---
 
-Additional Notes
-- This project was tested and confirmed to work on Linux systems. It may not work properly on Windows or Mac due to compatibility issues.
+## Additional Notes
+
+- This project was tested and confirmed to work on **Linux** systems. Compatibility with **Windows** or **Mac** is not guaranteed and may lead to issues.
