@@ -17,7 +17,7 @@ class SpheroController:
         Args:
             toy_name (str): The name of the Sphero toy to connect to.
         """
-        print("We are here")
+        print("Sphero Connecting...")
         self.toy = scanner.find_toy(toy_name=toy_name)
         if not self.toy:
             print("No Sphero found!")

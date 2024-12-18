@@ -15,7 +15,7 @@ class Camera:
             raise ValueError("Camera not accessible")
 
         # Adjust other camera settings for better image quality
-        self.cap.set(cv2.CAP_PROP_EXPOSURE, 80)
+        self.cap.set(cv2.CAP_PROP_EXPOSURE, 157)
         self.cap.set(cv2.CAP_PROP_GAIN, 0)
         self.cap.set(cv2.CAP_PROP_GAMMA, 100)
         self.cap.set(cv2.CAP_PROP_CONTRAST, 32)

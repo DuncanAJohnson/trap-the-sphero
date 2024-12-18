@@ -35,13 +35,16 @@ def detect_squares(frame, color_range, size_range):
     # cv2.waitKey(0)
 
     # Apply GaussianBlur to reduce noise
-    blurred = cv2.GaussianBlur(mask, (5, 5), 0)
+    blurred = cv2.GaussianBlur(mask, (3, 3), 0)
 
     # cv2.imshow('Blurred', blurred)
     # cv2.waitKey(0)
 
     # Perform edge detection using Canny
-    edges = cv2.Canny(blurred, 90, 190, apertureSize=3)
+    median = np.median(blurred)
+    lower_thresh = int(max(0, 0.66 * median))
+    upper_thresh = int(min(255, 1.33 * median))
+    edges = cv2.Canny(blurred, lower_thresh, upper_thresh)
 
     # cv2.imshow('Edges', edges)
     # cv2.waitKey(0)

@@ -16,8 +16,8 @@ def get_sphero_position(frame):
     hsv_frame = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
 
     # Define the range for white color in HSV
-    lower_white = np.array([0, 10, 200])
-    upper_white = np.array([240, 40, 255])
+    lower_white = np.array([0, 15, 230])
+    upper_white = np.array([240, 35, 255])
     # lower_orange = np.array([5, 150, 150])
     # upper_orange = np.array([45, 255, 255])
 
