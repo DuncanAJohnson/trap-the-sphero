@@ -8,7 +8,7 @@ A fun and interactive strategy game where players place orange obstacles on a 5x
 
 Before running this project, make sure you have the following installed on your system:
 
-- **Python 3.x**  
+- **Python 3.9** (or higher)  
 - **pip** (Python package manager)
 
 ---
@@ -19,12 +19,12 @@ To set up the project, follow these steps:
 
 1. Clone this repository:
     ```bash
-    git clone <this repo url>
+    git clone https://github.com/DuncanAJohnson/trap-the-sphero/
     ```
 
 2. Navigate to your project folder:
     ```bash
-    cd <your project folder>
+    cd trap-the-sphero
     ```
 
 3. Install the required dependencies:
@@ -32,9 +32,14 @@ To set up the project, follow these steps:
     pip install -r requirements.txt
     ```
 
+4. Run the game loop
+    ```bash
+    python game_loop.py
+    ```
+
 ---
 
-## Demo
+## Demo Video
 
 - https://youtu.be/R0_YGN3A_cU?si=0EqgqsLlAdLm7DfR
 
